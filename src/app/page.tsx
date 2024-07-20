@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { SignedIn, SignedOut } from "@clerk/nextjs"
 import Link from "next/link"
 import { db } from '~/server/db'
 
@@ -15,12 +16,20 @@ export default async function HomePage() {
   return (
     <main className="">
       <div className="flex flex-col gap-4">
-        {[...images, ...images, ...images].map((image, index) => (
-          <div key={index} className="w-96 p-2">
-            <img src={image.url} alt="image" className="w-full aspect-video" />
-            <div>{image.name}</div>
+
+        <SignedOut>
+          <div>
+            You&apos;re signed out. Please sign in above.
           </div>
-        ))}
+        </SignedOut>
+        <SignedIn>
+          {[...images, ...images, ...images].map((image, index) => (
+            <div key={index} className="w-96 p-2">
+              <img src={image.url} alt="image" className="w-full aspect-video" />
+              <div>{image.name}</div>
+            </div>
+          ))}
+        </SignedIn>
       </div>
     </main>
   )
