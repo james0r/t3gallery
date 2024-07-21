@@ -11,15 +11,17 @@ const Images = async () => {
 
   return (
     <>
-      {
-        [...images, ...images, ...images].map((image, index) => (
-          <div key={index} className="w-96 p-2">
-            <img src={image.url} alt="image" className="w-full aspect-video" />
-            <div>{image.name}</div>
-          </div>
-        ))
-      }
-    
+      <div className="flex flex-wrap">
+        {
+          images.map((image) => (
+            <div key={image.id} className="w-96 p-2">
+              <img src={image.url} alt="image" className="w-full aspect-video" />
+              <div>{image.name}</div>
+            </div>
+          ))
+        }
+      </div>
+
     </>
   )
 }
