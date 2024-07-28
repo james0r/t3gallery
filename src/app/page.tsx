@@ -1,26 +1,45 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 import Link from "next/link"
-import Images from "~/app/_components/images"
+import { getMyImages } from "~/server/db/queries"
+import Image from "next/image"
 
-export default async function HomePage() {
+export const dynamic = "force-dynamic"
 
-
-
-  // console.log(images)
+async function Images() {
+  const images = await getMyImages();
 
   return (
-    <main className="">
-      <div className="flex flex-col gap-4">
+    <div className="flex flex-wrap justify-center gap-4 p-4">
+      {images.map((image) => (
+        <div key={image.id} className="flex w-72 flex-col">
+          <Link href={`/img/${image.id}`}>
+            <Image
+              src={image.url}
+              style={{ objectFit: "contain" }}
+              width={250}
+              height={192}
+              alt={image.name}
+              className="w-full aspect-video object-cover"
+            />
+          </Link>
+          <div>{image.name}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
-        <SignedOut>
-          <div className="text-2xl mx-auto max-w-max font-semibold">
-            You&apos;re signed out. Please sign in above.
-          </div>
-        </SignedOut>
-        <SignedIn>
-          <Images />
-        </SignedIn>
-      </div>
+export default async function HomePage() {
+  return (
+    <main className="">
+      <SignedOut>
+        <div className="h-full w-full text-center text-2xl">
+          Please sign in above
+        </div>
+      </SignedOut>
+      <SignedIn>
+        <Images />
+      </SignedIn>
     </main>
-  )
+  );
 }

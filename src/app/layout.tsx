@@ -3,10 +3,10 @@ import "~/styles/globals.css"
 import { GeistSans } from "geist/font/sans"
 import { type Metadata } from "next"
 import Link from 'next/link'
-import "@uploadthing/react/styles.css";
+import "@uploadthing/react/styles.css"
 
 import { ClerkProvider } from "@clerk/nextjs"
-import TopNav from './_components/topnav';
+import TopNav from './_components/topnav'
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin"
 import { extractRouterConfig } from "uploadthing/server"
 import { ourFileRouter } from "./api/uploadthing/core"
@@ -19,18 +19,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  modal
+}: Readonly<{
+  children: React.ReactNode,
+  modal: React.ReactNode
+}>) {
   return (
     <ClerkProvider>
       <html lang="en" className={`${GeistSans.variable}`}>
         <body>
-        <NextSSRPlugin
-          routerConfig={extractRouterConfig(ourFileRouter)}
-        />
+          <NextSSRPlugin
+            routerConfig={extractRouterConfig(ourFileRouter)}
+          />
           <TopNav />
           {children}
+          {modal}
+          <div id="modal-root"></div>
         </body>
       </html>
-    </ClerkProvider>   
+    </ClerkProvider>
   )
 }
