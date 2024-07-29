@@ -10,9 +10,9 @@
 - [x] Add authentication (w/ clerk)
 - [x] Add image upload
 - [x] "taint" (server-only)
-- [ ] Use Next/Image component
-- [ ] Error management (w/ sentry)
-- [ ] Routing/image page (parallel route)
+- [x] Use Next/Image component
+- [x] Error management (w/ sentry)
+- [x] Routing/image page (parallel route)
 - [ ] Delete button (w/ Server Actions)
 - [ ] Analytics (posthog)
 - [ ] Ratelimitting (upstash)
